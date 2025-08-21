@@ -1,0 +1,139 @@
+/* Prohibition Era Art Deco Color Palette for Tailwind CSS v4.1 */
+/* Inspired by 1920s speakeasy culture and Art Deco design */
+
+@theme {
+  /* Primary Colors - Copper and Art Deco Metals */
+  --color-copper-50: #fdf8f6;
+  --color-copper-100: #f2e8e3;
+  --color-copper-200: #ebd4c8;
+  --color-copper-300: #deb8a5;
+  --color-copper-400: #d19577;
+  --color-copper-500: #c57c54;
+  --color-copper-600: #b86b42;
+  --color-copper-700: #975736;
+  --color-copper-800: #7c4831;
+  --color-copper-900: #663d2a;
+  --color-copper-950: #361f15;
+
+  /* Art Deco Gold */
+  --color-deco-gold-50: #fffbeb;
+  --color-deco-gold-100: #fef3c7;
+  --color-deco-gold-200: #fde68a;
+  --color-deco-gold-300: #fcd34d;
+  --color-deco-gold-400: #fbbf24;
+  --color-deco-gold-500: #d97706;
+  --color-deco-gold-600: #b45309;
+  --color-deco-gold-700: #92400e;
+  --color-deco-gold-800: #78350f;
+  --color-deco-gold-900: #451a03;
+
+  /* Art Deco Brass */
+  --color-brass-50: #fffdf7;
+  --color-brass-100: #fef9ea;
+  --color-brass-200: #fdf2d4;
+  --color-brass-300: #fbe6b3;
+  --color-brass-400: #f7d488;
+  --color-brass-500: #f2c464;
+  --color-brass-600: #e6a83e;
+  --color-brass-700: #c18a2b;
+  --color-brass-800: #9b6e26;
+  --color-brass-900: #7f5a23;
+
+  /* Prohibition Era Dark Palette */
+  --color-speakeasy-black: #0a0a0a;
+  --color-midnight-black: #1a1a1a;
+  --color-charcoal: #2a2a2a;
+  --color-smoke: #3a3a3a;
+  --color-shadow: #4a4a4a;
+
+  /* Art Deco Accent Colors */
+  --color-deco-emerald-500: #10b981;
+  --color-deco-emerald-600: #059669;
+  --color-deco-emerald-700: #047857;
+  
+  --color-deco-ruby-500: #dc2626;
+  --color-deco-ruby-600: #b91c1c;
+  --color-deco-ruby-700: #991b1b;
+  
+  --color-deco-sapphire-500: #2563eb;
+  --color-deco-sapphire-600: #1d4ed8;
+  --color-deco-sapphire-700: #1e40af;
+
+  /* Pearl and Ivory Tones */
+  --color-pearl-50: #fefefe;
+  --color-pearl-100: #fdfdfd;
+  --color-pearl-200: #fafafa;
+  --color-pearl-300: #f4f4f4;
+  --color-pearl-400: #eeeeee;
+  --color-pearl-500: #e0e0e0;
+  
+  --color-ivory-50: #fffef9;
+  --color-ivory-100: #fffdf0;
+  --color-ivory-200: #fffae0;
+  --color-ivory-300: #fff5c4;
+  --color-ivory-400: #ffed9e;
+  --color-ivory-500: #ffe066;
+}
+
+/* Art Deco Gradients */
+.gradient-copper-gold {
+  background: linear-gradient(135deg, var(--color-copper-600) 0%, var(--color-deco-gold-500) 100%);
+}
+
+.gradient-midnight-copper {
+  background: linear-gradient(135deg, var(--color-midnight-black) 0%, var(--color-copper-700) 100%);
+}
+
+.gradient-art-deco-sunset {
+  background: linear-gradient(135deg, var(--color-copper-500) 0%, var(--color-deco-gold-400) 50%, var(--color-brass-500) 100%);
+}
+
+.gradient-speakeasy-glow {
+  background: radial-gradient(ellipse at center, var(--color-copper-600) 0%, var(--color-midnight-black) 70%);
+}
+
+/* Art Deco Patterns */
+.pattern-zigzag {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--color-copper-500) 0px,
+    var(--color-copper-500) 10px,
+    var(--color-deco-gold-400) 10px,
+    var(--color-deco-gold-400) 20px
+  );
+}
+
+.pattern-sunburst {
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    var(--color-copper-600) 0deg,
+    var(--color-deco-gold-500) 72deg,
+    var(--color-copper-600) 144deg,
+    var(--color-deco-gold-500) 216deg,
+    var(--color-copper-600) 288deg,
+    var(--color-deco-gold-500) 360deg
+  );
+}
+
+/* Art Deco Typography Shadows */
+.text-shadow-deco-glow {
+  text-shadow: 
+    0 0 5px var(--color-deco-gold-400),
+    0 0 10px var(--color-deco-gold-400),
+    0 0 15px var(--color-deco-gold-400);
+}
+
+.text-shadow-copper-depth {
+  text-shadow: 
+    2px 2px 0px var(--color-copper-800),
+    4px 4px 0px var(--color-copper-900),
+    6px 6px 10px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow-prohibition-neon {
+  text-shadow: 
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 40px currentColor;
+}

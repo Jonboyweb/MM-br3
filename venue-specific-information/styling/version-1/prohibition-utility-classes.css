@@ -1,0 +1,429 @@
+/* Tailwind CSS v4.1 Prohibition Theme Utility Classes */
+/* Additional utility classes for Art Deco and prohibition-era styling */
+
+@theme {
+  /* Art Deco Container Queries (v4.1 feature) */
+  --container-xs: 20rem;
+  --container-sm: 24rem;
+  --container-md: 28rem;
+  --container-lg: 32rem;
+  --container-xl: 36rem;
+  --container-2xl: 42rem;
+  --container-3xl: 48rem;
+  
+  /* Art Deco Backdrop Filters */
+  --backdrop-blur-deco-subtle: blur(2px);
+  --backdrop-blur-deco-moderate: blur(6px);
+  --backdrop-blur-deco-strong: blur(12px);
+}
+
+/* Art Deco Layout Utilities */
+.layout-speakeasy {
+  display: grid;
+  grid-template-columns: 1fr min(65ch, 90%) 1fr;
+  gap: 0;
+}
+
+.layout-speakeasy > * {
+  grid-column: 2;
+}
+
+.layout-speakeasy > .full-bleed {
+  grid-column: 1 / -1;
+}
+
+/* Art Deco Geometric Shapes */
+.shape-diamond {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+.shape-hexagon {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+.shape-arrow-right {
+  clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%);
+}
+
+.shape-chevron {
+  clip-path: polygon(15px 0%, 100% 0%, calc(100% - 15px) 100%, 0% 100%);
+}
+
+.shape-art-deco-frame {
+  clip-path: polygon(20px 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%, 0% 20px);
+}
+
+/* Prohibition Era Backdrop Effects */
+.backdrop-speakeasy {
+  backdrop-filter: blur(8px) sepia(20%) saturate(120%);
+  background: rgba(26, 26, 26, 0.8);
+}
+
+.backdrop-smoke {
+  backdrop-filter: blur(4px) brightness(0.8);
+  background: rgba(58, 58, 58, 0.6);
+}
+
+.backdrop-copper-glow {
+  backdrop-filter: blur(6px) hue-rotate(30deg) saturate(150%);
+  background: linear-gradient(135deg, 
+    rgba(197, 124, 84, 0.2), 
+    rgba(26, 26, 26, 0.8));
+}
+
+/* Art Deco Text Effects */
+.text-art-deco-outline {
+  -webkit-text-stroke: 2px theme(colors.copper.600);
+  color: transparent;
+  text-shadow: 
+    2px 2px 0 theme(colors.deco-gold.500),
+    4px 4px 0 theme(colors.copper.800);
+}
+
+.text-prohibition-neon {
+  color: theme(colors.deco-gold.400);
+  text-shadow: 
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 40px currentColor,
+    0 0 80px currentColor;
+  animation: flicker 1.5s infinite alternate;
+}
+
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    text-shadow: 
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 40px currentColor,
+      0 0 80px currentColor;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+.text-embossed {
+  color: theme(colors.copper.300);
+  text-shadow: 
+    1px 1px 0 theme(colors.copper.800),
+    2px 2px 0 theme(colors.copper.900),
+    3px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.text-engraved {
+  color: theme(colors.copper.700);
+  text-shadow: 
+    0 1px 0 theme(colors.copper.200),
+    0 2px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Art Deco Border Utilities */
+.border-art-deco {
+  border: 3px solid;
+  border-image: linear-gradient(45deg, 
+    theme(colors.copper.600) 0%,
+    theme(colors.deco-gold.500) 25%,
+    theme(colors.brass.500) 50%,
+    theme(colors.deco-gold.500) 75%,
+    theme(colors.copper.600) 100%) 1;
+}
+
+.border-deco-corner {
+  position: relative;
+  border: 2px solid theme(colors.copper.600);
+}
+
+.border-deco-corner::before,
+.border-deco-corner::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid theme(colors.deco-gold.500);
+}
+
+.border-deco-corner::before {
+  top: -2px;
+  left: -2px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.border-deco-corner::after {
+  bottom: -2px;
+  right: -2px;
+  border-left: none;
+  border-top: none;
+}
+
+.border-zigzag {
+  border-top: 4px solid theme(colors.copper.600);
+  position: relative;
+}
+
+.border-zigzag::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: repeating-linear-gradient(
+    45deg,
+    theme(colors.deco-gold.500) 0px,
+    theme(colors.deco-gold.500) 8px,
+    theme(colors.copper.600) 8px,
+    theme(colors.copper.600) 16px
+  );
+}
+
+/* Art Deco Animation Classes */
+@keyframes art-deco-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-art-deco-entrance {
+  animation: art-deco-entrance 0.8s ease-out;
+}
+
+@keyframes copper-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px theme(colors.copper.400);
+  }
+  50% {
+    box-shadow: 
+      0 0 20px theme(colors.copper.400),
+      0 0 30px theme(colors.copper.400),
+      0 0 40px theme(colors.copper.400);
+  }
+}
+
+.animate-copper-pulse {
+  animation: copper-pulse 2s ease-in-out infinite;
+}
+
+@keyframes gold-shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+.animate-gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    theme(colors.copper.600) 0%,
+    theme(colors.deco-gold.400) 50%,
+    theme(colors.copper.600) 100%
+  );
+  background-size: 200% 100%;
+  animation: gold-shimmer 2s linear infinite;
+}
+
+/* Container Query Classes (v4.1 feature) */
+@container (min-width: 20rem) {
+  .container-xs\:title-responsive {
+    font-size: 1.5rem;
+  }
+}
+
+@container (min-width: 24rem) {
+  .container-sm\:title-responsive {
+    font-size: 1.875rem;
+  }
+}
+
+@container (min-width: 28rem) {
+  .container-md\:title-responsive {
+    font-size: 2.25rem;
+  }
+}
+
+@container (min-width: 32rem) {
+  .container-lg\:title-responsive {
+    font-size: 2.5rem;
+  }
+}
+
+/* Art Deco Interactive States */
+.interactive-copper {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.interactive-copper:hover {
+  color: theme(colors.deco-gold.400);
+  text-shadow: 0 0 10px theme(colors.deco-gold.400);
+  transform: translateY(-2px);
+}
+
+.interactive-copper:active {
+  transform: translateY(0);
+  text-shadow: 0 0 5px theme(colors.deco-gold.400);
+}
+
+/* Art Deco Focus States */
+.focus-art-deco:focus {
+  outline: none;
+  box-shadow: 
+    0 0 0 3px theme(colors.copper.600),
+    0 0 0 6px theme(colors.deco-gold.400);
+}
+
+.focus-art-deco:focus-visible {
+  outline: 2px solid theme(colors.deco-gold.400);
+  outline-offset: 4px;
+}
+
+/* Art Deco Loading States */
+@keyframes loading-copper {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.loading-art-deco {
+  background: linear-gradient(
+    270deg,
+    theme(colors.copper.800),
+    theme(colors.copper.600),
+    theme(colors.deco-gold.500),
+    theme(colors.copper.600),
+    theme(colors.copper.800)
+  );
+  background-size: 400% 400%;
+  animation: loading-copper 2s ease infinite;
+}
+
+/* Art Deco Mask Utilities (v4.1 feature) */
+.mask-art-deco-diamond {
+  -webkit-mask: radial-gradient(circle at center, black 40%, transparent 40%);
+  mask: radial-gradient(circle at center, black 40%, transparent 40%);
+}
+
+.mask-art-deco-gradient {
+  -webkit-mask: linear-gradient(45deg, black 0%, transparent 100%);
+  mask: linear-gradient(45deg, black 0%, transparent 100%);
+}
+
+.mask-art-deco-stripes {
+  -webkit-mask: repeating-linear-gradient(
+    90deg,
+    black 0px,
+    black 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  mask: repeating-linear-gradient(
+    90deg,
+    black 0px,
+    black 10px,
+    transparent 10px,
+    transparent 20px
+  );
+}
+
+/* Art Deco Print Styles */
+@media print {
+  .prohibition-theme {
+    background: white;
+    color: black;
+  }
+  
+  .btn-deco-primary,
+  .btn-deco-secondary,
+  .btn-deco-accent {
+    border: 2px solid black;
+    background: white;
+    color: black;
+    box-shadow: none;
+    text-shadow: none;
+  }
+  
+  .card-deco,
+  .card-deco-luxury {
+    border: 2px solid black;
+    background: white;
+    box-shadow: none;
+  }
+  
+  .title-deco-hero,
+  .title-deco-large,
+  .title-deco-medium {
+    color: black;
+    text-shadow: none;
+  }
+}
+
+/* Dark Mode Variations */
+@media (prefers-color-scheme: light) {
+  .auto-theme {
+    background: theme(colors.pearl.50);
+    color: theme(colors.copper.900);
+  }
+  
+  .auto-theme .btn-deco-primary {
+    background: linear-gradient(135deg, 
+      theme(colors.copper.500) 0%, 
+      theme(colors.deco-gold.400) 100%);
+  }
+}
+
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-art-deco-entrance,
+  .animate-copper-pulse,
+  .animate-gold-shimmer,
+  .loading-art-deco {
+    animation: none;
+  }
+  
+  .text-prohibition-neon {
+    animation: none;
+    text-shadow: 0 0 10px currentColor;
+  }
+  
+  .interactive-copper {
+    transition: none;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .prohibition-theme {
+    background: #000000;
+    color: #ffffff;
+  }
+  
+  .btn-deco-primary,
+  .btn-deco-secondary,
+  .btn-deco-accent {
+    border: 3px solid currentColor;
+    background: transparent;
+    color: #ffffff;
+  }
+  
+  .card-deco,
+  .card-deco-luxury {
+    border: 3px solid currentColor;
+    background: transparent;
+  }
+}

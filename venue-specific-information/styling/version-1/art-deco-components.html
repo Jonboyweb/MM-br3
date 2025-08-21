@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Backroom Leeds - Art Deco Component Examples</title>
+    <script src="https://cdn.tailwindcss.com/4.1.0-beta.1"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        /* Import our custom Prohibition theme */
+        @import url('./tailwind-prohibition-theme.css');
+        
+        /* Load Fino font family */
+        @font-face {
+            font-family: 'Fino-Regular';
+            src: url('../logos/font-files/Fino-Regular.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Fino-Bold';
+            src: url('../logos/font-files/Fino-Bold.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'FinoTitle-Bold';
+            src: url('../logos/font-files/FinoTitle-Bold.ttf') format('truetype');
+        }
+    </style>
+</head>
+<body class="prohibition-theme min-h-screen">
+    <!-- Art Deco Header Section -->
+    <header class="prohibition-container py-12 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="title-deco-hero mb-4">The Backroom</h1>
+            <p class="title-deco-medium mb-8">Hidden Speakeasy • Leeds</p>
+            <div class="deco-divider"></div>
+        </div>
+    </header>
+
+    <!-- Button Showcase Section -->
+    <section class="py-16 px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="title-deco-large text-center mb-12">Art Deco Button Collection</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <!-- Primary Button Examples -->
+                <div class="card-deco text-center">
+                    <h3 class="title-deco-medium mb-6">Primary Buttons</h3>
+                    <div class="space-y-4">
+                        <button class="btn-deco-primary w-full">Book Your Table</button>
+                        <button class="btn-deco-primary w-full">Private Hire</button>
+                        <button class="btn-deco-primary w-full">View Events</button>
+                    </div>
+                </div>
+
+                <!-- Secondary Button Examples -->
+                <div class="card-deco text-center">
+                    <h3 class="title-deco-medium mb-6">Secondary Buttons</h3>
+                    <div class="space-y-4">
+                        <button class="btn-deco-secondary w-full">Learn More</button>
+                        <button class="btn-deco-secondary w-full">Contact Us</button>
+                        <button class="btn-deco-secondary w-full">Gallery</button>
+                    </div>
+                </div>
+
+                <!-- Accent Button Examples -->
+                <div class="card-deco text-center">
+                    <h3 class="title-deco-medium mb-6">Accent Buttons</h3>
+                    <div class="space-y-4">
+                        <button class="btn-deco-accent w-full">Join Waiting List</button>
+                        <button class="btn-deco-accent w-full">Subscribe</button>
+                        <button class="btn-deco-accent w-full">Follow Us</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Typography Showcase -->
+    <section class="py-16 px-6 bg-gradient-to-b from-midnight-black to-speakeasy-black">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="title-deco-large text-center mb-12">Art Deco Typography</h2>
+            
+            <div class="space-y-12">
+                <!-- Hero Title Example -->
+                <div class="text-center">
+                    <h1 class="title-deco-hero mb-4 deco-glow-pulse">Shhh!</h1>
+                    <p class="text-deco-body">Saturday Night Underground</p>
+                </div>
+
+                <!-- Event Titles -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="text-center">
+                        <h2 class="title-deco-large mb-4">La Fiesta</h2>
+                        <p class="text-deco-accent mb-2">Friday Nights</p>
+                        <p class="text-deco-body">Latin vibes and cocktail nights in our hidden underground venue</p>
+                    </div>
+                    <div class="text-center">
+                        <h2 class="title-deco-large mb-4">Nostalgia</h2>
+                        <p class="text-deco-accent mb-2">Sunday Sessions</p>
+                        <p class="text-deco-body">Classic hits and timeless elegance every Sunday evening</p>
+                    </div>
+                </div>
+
+                <!-- Text Shadow Examples -->
+                <div class="card-deco-luxury">
+                    <h3 class="title-deco-medium mb-6 text-center">Text Shadow Effects</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                        <div>
+                            <p class="text-xl font-bold text-copper-400" style="text-shadow: var(--text-shadow-copper-glow);">Copper Glow</p>
+                        </div>
+                        <div>
+                            <p class="text-xl font-bold text-deco-gold-400" style="text-shadow: var(--text-shadow-gold-glow);">Gold Glow</p>
+                        </div>
+                        <div>
+                            <p class="text-xl font-bold text-brass-400" style="text-shadow: var(--text-shadow-brass-glow);">Brass Glow</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Card Components Showcase -->
+    <section class="py-16 px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="title-deco-large text-center mb-12">Art Deco Card Components</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Standard Card -->
+                <div class="card-deco">
+                    <h3 class="title-deco-medium mb-4">Table Booking</h3>
+                    <p class="text-deco-body mb-6">Reserve your spot in Leeds' most exclusive underground venue. Skip the queue and enjoy premium service.</p>
+                    <button class="btn-deco-primary w-full">Reserve Now</button>
+                </div>
+
+                <!-- Luxury Card -->
+                <div class="card-deco-luxury">
+                    <h3 class="title-deco-medium mb-4 text-deco-gold-400">VIP Experience</h3>
+                    <p class="text-deco-body mb-6">Ultimate luxury with bottle service, priority admission, and dedicated waitress service until 6am.</p>
+                    <div class="space-y-3">
+                        <button class="btn-deco-primary w-full">Book VIP</button>
+                        <button class="btn-deco-secondary w-full">Learn More</button>
+                    </div>
+                </div>
+
+                <!-- Event Card -->
+                <div class="card-deco bg-gradient-to-br from-midnight-black via-charcoal to-copper-950">
+                    <h3 class="title-deco-medium mb-4">Private Hire</h3>
+                    <p class="text-deco-body mb-6">Transform our venue for your exclusive event. Perfect for corporate parties, celebrations, and special occasions.</p>
+                    <button class="btn-deco-accent w-full mb-3">Get Quote</button>
+                    <button class="btn-deco-secondary w-full">View Packages</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Art Deco Patterns and Decorative Elements -->
+    <section class="py-16 px-6 bg-gradient-speakeasy-glow">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="title-deco-large text-center mb-12">Decorative Elements</h2>
+            
+            <!-- Gradient Showcase -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div class="gradient-copper-gold p-8 rounded-lg text-center">
+                    <h3 class="text-xl font-bold text-speakeasy-black mb-2">Copper Gold Gradient</h3>
+                    <p class="text-midnight-black">Perfect for premium elements</p>
+                </div>
+                <div class="gradient-art-deco-sunset p-8 rounded-lg text-center">
+                    <h3 class="text-xl font-bold text-speakeasy-black mb-2">Art Deco Sunset</h3>
+                    <p class="text-midnight-black">Ideal for hero sections</p>
+                </div>
+            </div>
+
+            <!-- Pattern Examples -->
+            <div class="space-y-8">
+                <div class="deco-divider"></div>
+                
+                <div class="text-center">
+                    <h3 class="title-deco-medium mb-6">Shimmer Animation</h3>
+                    <div class="deco-shimmer h-4 rounded-full max-w-md mx-auto"></div>
+                </div>
+
+                <div class="deco-divider"></div>
+                
+                <!-- Border Examples -->
+                <div class="deco-border p-6 text-center">
+                    <h3 class="title-deco-medium mb-4">Art Deco Border</h3>
+                    <p class="text-deco-body">Elegant geometric borders for special content</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Example -->
+    <nav class="prohibition-container py-6 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-wrap justify-center gap-4">
+                <button class="btn-deco-secondary">Home</button>
+                <button class="btn-deco-secondary">Events</button>
+                <button class="btn-deco-secondary">Private Hire</button>
+                <button class="btn-deco-secondary">Gallery</button>
+                <button class="btn-deco-secondary">Contact</button>
+                <button class="btn-deco-primary">Book Table</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="prohibition-container py-12 px-6 mt-16">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="title-deco-medium mb-4">The Backroom Leeds</h3>
+            <p class="text-deco-body mb-2">50a Call Lane, Leeds LS1 6DT</p>
+            <p class="text-deco-accent">Hidden Under The Railway Bridge</p>
+            <div class="deco-divider my-8"></div>
+            <p class="text-deco-body text-sm">© 2024 The Backroom Leeds. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
