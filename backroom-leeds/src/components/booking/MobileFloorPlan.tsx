@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { FloorPlan } from './FloorPlan'
 import { motion, PanInfo } from 'framer-motion'
 import { FloorPlanProps, MobileFloorPlanProps } from '@/types/booking'
 import { InteractiveTable } from './InteractiveTable'
@@ -399,7 +400,5 @@ export function AdaptiveFloorPlan(props: AdaptiveFloorPlanProps) {
     )
   }
 
-  // Import the regular FloorPlan component
-  const { FloorPlan } = require('./FloorPlan')
   return <FloorPlan {...props} />
 }
