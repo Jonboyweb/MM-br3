@@ -1,261 +1,223 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { EventCard } from '@/components/events/EventCard'
-import { REGULAR_EVENTS, getNextEventDate, isEventTonight, isEventThisWeek } from '@/data/events'
-import { Calendar, Clock, MapPin, Music, Users, ArrowRight, Star } from 'lucide-react'
-import { format, addDays } from 'date-fns'
+import { RegularEvents } from '@/components/events/RegularEvents'
+import { DJLineup } from '@/components/events/DJLineup'
+import { SocialShare } from '@/components/events/SocialShare'
+import { MusicGenreIndicators } from '@/components/events/MusicGenreIndicators'
+import { Calendar, Clock, MapPin, Music, Users, ArrowRight, Star, Zap, Crown, Radio } from 'lucide-react'
 import Link from 'next/link'
+import { Button } from '@/components/ui/Button'
 
 export default function EventsPage() {
-  const [eventSchedule, setEventSchedule] = useState<Array<{
-    event: any
-    nextDate: string
-    isTonight: boolean
-    isThisWeek: boolean
-  }>>([])
+  const handleBookTable = (eventId: string, date: Date) => {
+    // Navigate to booking page with pre-filled event data
+    window.location.href = `/booking?event=${eventId}&date=${date.toISOString().split('T')[0]}`;
+  };
 
-  useEffect(() => {
-    // Calculate schedule for all regular events
-    const schedule = REGULAR_EVENTS.map(eventData => ({
-      event: eventData.event,
-      nextDate: getNextEventDate(eventData.event.day_of_week!),
-      isTonight: isEventTonight(eventData.event.day_of_week!),
-      isThisWeek: isEventThisWeek(eventData.event.day_of_week!)
-    }))
-    
-    // Sort by next occurrence (tonight first, then this week, then next week)
-    schedule.sort((a, b) => {
-      if (a.isTonight && !b.isTonight) return -1
-      if (!a.isTonight && b.isTonight) return 1
-      if (a.isThisWeek && !b.isThisWeek) return -1
-      if (!a.isThisWeek && b.isThisWeek) return 1
-      return new Date(a.nextDate).getTime() - new Date(b.nextDate).getTime()
-    })
-    
-    setEventSchedule(schedule)
-  }, [])
-
-  // Get tonight's event
-  const tonightEvent = eventSchedule.find(e => e.isTonight)
+  const handleTicketPurchase = (eventSlug: string) => {
+    // Fatsoma integration
+    window.open(`https://www.fatsoma.com/events/${eventSlug}`, '_blank');
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-purple-50">
+    <div className="bg-primary">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-amber-900 to-purple-900 text-white py-20">
-        <div className="container mx-auto px-4">
+      <section className="relative bg-gradient-to-br from-prohibition-burgundy via-speakeasy-black to-deco-gold/20 text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-deco-pattern"></div>
+        <div className="absolute inset-0 noise-overlay"></div>
+        
+        <div className="relative container mx-auto px-4 py-20">
           <div className="max-w-4xl mx-auto text-center">
             <motion.h1 
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-5xl md:text-6xl font-bold mb-4"
+              className="text-6xl md:text-8xl font-headline text-shadow-gold mb-6 tracking-wider"
             >
-              Our Events
+              OUR EVENTS
             </motion.h1>
+            
+            <div className="w-32 h-1 bg-gradient-gold mx-auto mb-8"></div>
             
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-xl text-amber-100 mb-8"
+              className="text-xl md:text-2xl text-deco-champagne mb-4"
             >
-              Three legendary nights, three different vibes
+              Three Legendary Nights, Three Different Vibes
+            </motion.p>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="text-lg text-content-secondary mb-12 max-w-3xl mx-auto leading-relaxed"
+            >
+              From Latin fire to R&B royalty to nostalgic Sunday sessions - 
+              discover why The Backroom Leeds defines weekend nightlife
             </motion.p>
 
-            {/* Tonight highlight */}
-            {tonightEvent && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3 }}
-                className="bg-white bg-opacity-20 rounded-lg p-6 mb-8"
-              >
-                <div className="flex items-center justify-center gap-3 mb-3">
-                  <div className="w-4 h-4 bg-red-400 rounded-full animate-pulse" />
-                  <span className="font-bold text-lg">HAPPENING TONIGHT</span>
-                </div>
-                <h2 className="text-2xl font-bold mb-2">{tonightEvent.event.name}</h2>
-                <p className="text-white/90">{tonightEvent.event.description}</p>
-              </motion.div>
-            )}
-
-            {/* Quick stats */}
+            {/* Feature highlights */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+              className="flex flex-wrap justify-center gap-6 text-sm mb-8"
             >
-              <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                <Calendar className="w-8 h-8 mx-auto mb-2" />
-                <div className="font-bold">3 Weekly Events</div>
-                <div className="text-sm text-white/80">Friday • Saturday • Sunday</div>
+              <div className="flex items-center space-x-2 glass rounded-full px-4 py-2">
+                <Crown className="w-4 h-4 text-deco-gold" />
+                <span>VIP Table Service</span>
               </div>
-              <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                <Users className="w-8 h-8 mx-auto mb-2" />
-                <div className="font-bold">500 Capacity</div>
-                <div className="text-sm text-white/80">Two floors of entertainment</div>
+              <div className="flex items-center space-x-2 glass rounded-full px-4 py-2">
+                <Zap className="w-4 h-4 text-deco-gold" />
+                <span>Live DJs Every Night</span>
               </div>
-              <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                <Clock className="w-8 h-8 mx-auto mb-2" />
-                <div className="font-bold">Late License</div>
-                <div className="text-sm text-white/80">Until 6am Fri-Sat</div>
+              <div className="flex items-center space-x-2 glass rounded-full px-4 py-2">
+                <Radio className="w-4 h-4 text-deco-gold" />
+                <span>Premium Sound System</span>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <Button variant="gold" size="xl" className="font-headline">
+                BOOK YOUR TABLE NOW
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+        
+        <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-transparent via-deco-gold to-transparent"></div>
+      </section>
+
+      {/* Regular Events Section */}
+      <section className="py-20 bg-secondary">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-headline text-deco-gold mb-6 tracking-wider">
+                WEEKLY EVENTS
+              </h2>
+              <div className="w-24 h-1 bg-gradient-gold mx-auto mb-6"></div>
+              <p className="text-xl text-content-secondary max-w-3xl mx-auto">
+                Every week brings three distinct musical experiences, each with its own character and legendary following
+              </p>
+            </motion.div>
+
+            <RegularEvents
+              layout="grid"
+              onBookTable={handleBookTable}
+              onTicketPurchase={handleTicketPurchase}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* DJ Showcase Section */}
+      <section className="py-20 bg-gradient-to-br from-speakeasy-black to-prohibition-burgundy/20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-headline text-deco-gold mb-6 tracking-wider">
+                RESIDENT DJs
+              </h2>
+              <div className="w-24 h-1 bg-gradient-gold mx-auto mb-6"></div>
+              <p className="text-xl text-content-secondary max-w-3xl mx-auto">
+                Meet the masters behind the music - our resident DJs who create the perfect atmosphere every night
+              </p>
+            </motion.div>
+
+            <DJLineup
+              djs={[]}
+              eventSlug="all"
+              layout="grid"
+              showBios={false}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Music Experience Section */}
+      <section className="py-20 bg-deco-gold/5">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-headline text-deco-gold mb-6 tracking-wider">
+                MUSIC EXPERIENCE
+              </h2>
+              <div className="w-24 h-1 bg-gradient-gold mx-auto mb-6"></div>
+              <p className="text-xl text-content-secondary max-w-3xl mx-auto">
+                From Latin fire to R&B smoothness to nostalgic throwbacks - experience the full spectrum of nightlife music
+              </p>
+            </motion.div>
+
+            <MusicGenreIndicators
+              genres={['R&B', 'Latin', 'Reggaeton', 'Commercial', 'Hip Hop', '2000s', '2010s', 'Throwbacks']}
+              layout="grid"
+              variant="showcase"
+              showDescriptions={true}
+              showPopularity={true}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="py-20 bg-gradient-to-r from-prohibition-burgundy to-deco-gold/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="space-y-8"
+            >
+              <h2 className="text-4xl md:text-5xl font-headline text-white mb-6 tracking-wider">
+                READY TO EXPERIENCE THE NIGHT?
+              </h2>
+              
+              <p className="text-xl text-white/90 mb-8">
+                Join thousands who&apos;ve discovered Leeds&apos; best-kept secret
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <Button variant="gold" size="xl" className="min-w-48 font-headline">
+                  BOOK YOUR TABLE
+                </Button>
+                <Button variant="outline" size="xl" className="min-w-48 font-headline border-white text-white hover:bg-white hover:text-prohibition-burgundy">
+                  GET EVENT TICKETS
+                </Button>
+              </div>
+              
+              <div className="mt-8">
+                <SocialShare
+                  title="The Backroom Leeds Events"
+                  description="Discover Leeds' premier prohibition experience with legendary weekly events"
+                  url={typeof window !== 'undefined' ? window.location.href : ''}
+                  hashtags={['LeedsNightlife', 'TheBackroomLeeds', 'WeekendPlans']}
+                  variant="inline"
+                  className="justify-center"
+                />
               </div>
             </motion.div>
           </div>
         </div>
-      </div>
-
-      {/* Main content */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="max-w-6xl mx-auto">
-          {/* Weekly schedule */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="bg-white rounded-lg shadow-lg p-8 mb-12"
-          >
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-              Weekly Schedule
-            </h2>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {eventSchedule.map((scheduleItem, index) => (
-                <motion.div
-                  key={scheduleItem.event.slug}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 + index * 0.1 }}
-                >
-                  <EventCard
-                    event={scheduleItem.event}
-                    isTonight={scheduleItem.isTonight}
-                    isThisWeek={scheduleItem.isThisWeek}
-                    nextEventDate={scheduleItem.nextDate}
-                    onBookTable={(eventId, date) => {
-                      window.location.href = `/booking?event=${scheduleItem.event.slug}&date=${date}`
-                    }}
-                    compact={true}
-                  />
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Event comparison */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="bg-white rounded-lg shadow-lg p-8 mb-12"
-          >
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-              Find Your Perfect Night
-            </h2>
-            
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-gray-200">
-                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Event</th>
-                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Day</th>
-                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Music</th>
-                    <th className="text-left py-3 px-4 font-semibold text-gray-900">Vibe</th>
-                    <th className="text-center py-3 px-4 font-semibold text-gray-900">Book</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {eventSchedule.map((item, index) => (
-                    <motion.tr
-                      key={item.event.slug}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.7 + index * 0.1 }}
-                      className="border-b border-gray-100 hover:bg-gray-50"
-                    >
-                      <td className="py-4 px-4">
-                        <div className="flex items-center gap-3">
-                          {item.isTonight && (
-                            <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
-                          )}
-                          <div>
-                            <div className="font-bold text-gray-900">{item.event.name}</div>
-                            <div className="text-sm text-gray-600">
-                              {format(new Date(item.nextDate), 'MMM d')}
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="py-4 px-4">
-                        <span className="capitalize font-medium">{item.event.day_of_week}</span>
-                      </td>
-                      <td className="py-4 px-4">
-                        <div className="flex flex-wrap gap-1">
-                          {item.event.music_genres.slice(0, 2).map((genre: string) => (
-                            <span key={genre} className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
-                              {genre}
-                            </span>
-                          ))}
-                        </div>
-                      </td>
-                      <td className="py-4 px-4">
-                        <span className="text-sm text-gray-600">
-                          {item.event.slug === 'la-fiesta' ? 'High-energy Latin' :
-                           item.event.slug === 'shhh' ? 'Premium R&B' :
-                           'Relaxed throwbacks'}
-                        </span>
-                      </td>
-                      <td className="py-4 px-4 text-center">
-                        <Link
-                          href={`/booking?event=${item.event.slug}&date=${item.nextDate}`}
-                          className="bg-amber-600 text-white px-3 py-2 rounded text-sm font-medium hover:bg-amber-700 transition-colors"
-                        >
-                          Book
-                        </Link>
-                      </td>
-                    </motion.tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </motion.div>
-
-          {/* Call to action */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9 }}
-            className="bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg p-8 text-center"
-          >
-            <Star className="w-16 h-16 text-yellow-300 mx-auto mb-4" />
-            <h2 className="text-3xl font-bold mb-4">Ready to Experience The Backroom?</h2>
-            <p className="text-green-100 mb-6 max-w-2xl mx-auto">
-              Choose your night, book your table, and join Leeds&apos; most exclusive party destinations. 
-              Every event offers a unique atmosphere with premium service and unforgettable experiences.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/booking"
-                className="bg-white text-green-700 px-8 py-4 rounded-lg font-bold text-lg hover:bg-green-50 transition-colors flex items-center gap-2"
-              >
-                <MapPin className="w-5 h-5" />
-                Book Any Event
-              </Link>
-              
-              <Link
-                href="/"
-                className="bg-white bg-opacity-20 border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-green-700 transition-colors flex items-center gap-2"
-              >
-                Back to Home
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </div>
+      </section>
     </div>
   )
 }

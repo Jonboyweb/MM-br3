@@ -11,3 +11,10 @@ export { BookingForm } from '../booking/BookingForm';
 export { PaymentForm } from '../booking/PaymentForm';
 export { EnhancedTableSelector } from '../booking/EnhancedTableSelector';
 export { BookingValidation } from '../booking/BookingValidation';
+
+// Re-export event components for easier imports
+export { EventCard } from '../events/EventCard';
+export { RegularEvents } from '../events/RegularEvents';
+export { DJLineup } from '../events/DJLineup';
+export { SocialShare } from '../events/SocialShare';
+export { MusicGenreIndicators } from '../events/MusicGenreIndicators';
