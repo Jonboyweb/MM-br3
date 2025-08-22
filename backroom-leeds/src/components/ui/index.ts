@@ -5,3 +5,9 @@ export { Textarea } from './Textarea';
 export type { ButtonProps } from './Button';
 export type { InputProps } from './Input';
 export type { TextareaProps } from './Textarea';
+
+// Re-export booking components for easier imports
+export { BookingForm } from '../booking/BookingForm';
+export { PaymentForm } from '../booking/PaymentForm';
+export { EnhancedTableSelector } from '../booking/EnhancedTableSelector';
+export { BookingValidation } from '../booking/BookingValidation';
