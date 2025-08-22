@@ -20,15 +20,25 @@ interface Table {
 }
 
 interface EnhancedTableSelectorProps {
+  venueId: string;
+  bookingDate: string;
+  startTime: string;
+  endTime: string;
   partySize: number;
-  onTableSelect: (tables: Table[]) => void;
-  selectedTables: Table[];
+  onTablesSelected: (tableIds: string[], amount: number) => void;
+  onBack?: () => void;
+  selectedTables: string[];
   className?: string;
 }
 
 export function EnhancedTableSelector({ 
+  venueId,
+  bookingDate,
+  startTime,
+  endTime,
   partySize, 
-  onTableSelect, 
+  onTablesSelected, 
+  onBack,
   selectedTables,
   className 
 }: EnhancedTableSelectorProps) {
@@ -118,7 +128,7 @@ export function EnhancedTableSelector({
 
   const getTableColor = (table: Table) => {
     if (!table.isAvailable) return 'bg-danger/20 border-danger';
-    if (selectedTables.some(t => t.id === table.id)) return 'bg-deco-gold border-deco-gold';
+    if (selectedTables.includes(table.id)) return 'bg-deco-gold border-deco-gold';
     if (table.isRecommended) return 'bg-success/20 border-success';
     
     switch (table.type) {
@@ -136,20 +146,25 @@ export function EnhancedTableSelector({
   const handleTableClick = (table: Table) => {
     if (!table.isAvailable) return;
     
-    const isSelected = selectedTables.some(t => t.id === table.id);
-    let newSelection: Table[];
+    const isSelected = selectedTables.includes(table.id);
+    let newSelection: string[];
     
     if (isSelected) {
-      newSelection = selectedTables.filter(t => t.id !== table.id);
+      newSelection = selectedTables.filter(id => id !== table.id);
     } else {
-      newSelection = [...selectedTables, table];
+      newSelection = [...selectedTables, table.id];
     }
     
-    onTableSelect(newSelection);
+    // Calculate total amount based on selected tables
+    const selectedTableObjects = tables.filter(t => newSelection.includes(t.id));
+    const totalAmount = selectedTableObjects.reduce((sum, t) => sum + (t.capacity * 1000 * t.priceMultiplier), 0); // £10 per person * capacity * multiplier
+    
+    onTablesSelected(newSelection, totalAmount);
   };
 
-  const getTotalCapacity = () => selectedTables.reduce((sum, table) => sum + table.capacity, 0);
-  const getTotalPrice = () => selectedTables.reduce((sum, table) => sum + (50 * table.priceMultiplier), 0);
+  const getSelectedTableObjects = () => tables.filter(t => selectedTables.includes(t.id));
+  const getTotalCapacity = () => getSelectedTableObjects().reduce((sum, table) => sum + table.capacity, 0);
+  const getTotalPrice = () => getSelectedTableObjects().reduce((sum, table) => sum + (50 * table.priceMultiplier), 0);
 
   return (
     <div className={cn('bg-secondary rounded-xl p-6 border border-deco-gold/20', className)}>
@@ -234,7 +249,7 @@ export function EnhancedTableSelector({
         <div className="relative w-full h-80">
           {currentFloorTables.map((table) => {
             const Icon = getTableIcon(table.type);
-            const isSelected = selectedTables.some(t => t.id === table.id);
+            const isSelected = selectedTables.includes(table.id);
             
             return (
               <motion.div
@@ -358,7 +373,7 @@ export function EnhancedTableSelector({
         >
           <h4 className="font-medium text-deco-gold mb-3">Selected Tables</h4>
           <div className="space-y-2 mb-4">
-            {selectedTables.map((table) => (
+            {getSelectedTableObjects().map((table) => (
               <div key={table.id} className="flex justify-between items-center text-sm">
                 <span className="text-content-secondary">
                   Table {table.number} ({table.capacity} people)
