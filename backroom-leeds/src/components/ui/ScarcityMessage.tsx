@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertTriangle, Clock, Users, Zap, Fire, Eye, TrendingUp } from 'lucide-react';
+import { AlertTriangle, Clock, Users, Zap, Flame, Eye, TrendingUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ScarcityMessageProps {
@@ -93,7 +93,7 @@ export function ScarcityMessage({
       case 'social-proof':
         return Eye;
       case 'price-increase':
-        return Fire;
+        return Flame;
       default:
         return AlertTriangle;
     }
