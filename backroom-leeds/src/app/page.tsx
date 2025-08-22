@@ -1,60 +1,49 @@
 import Link from "next/link";
-import { ArrowRight, MapPin, Clock, Users } from 'lucide-react';
+import { ArrowRight, MapPin, Clock, Users, Star, Zap, Crown } from 'lucide-react';
 import Button from "@/components/ui/Button";
+import { VideoHero } from "@/components/ui/VideoHero";
+import { ScarcityMessage, scarcityPresets } from "@/components/ui/ScarcityMessage";
+import { SocialProof } from "@/components/ui/SocialProof";
+import { MobileBookingFlow } from "@/components/booking/MobileBookingFlow";
+import { useState } from "react";
 
 export default function Home() {
+  const [mobileBookingOpen, setMobileBookingOpen] = useState(false);
+  const [tablesLeft] = useState(Math.floor(Math.random() * 5) + 4); // 4-9 tables remaining
+
   return (
     <div className="bg-primary">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-prohibition-burgundy via-speakeasy-black to-deco-gold/20 text-white overflow-hidden">
-        {/* Art Deco pattern overlay */}
-        <div className="absolute inset-0 opacity-10 bg-deco-pattern"></div>
-        <div className="absolute inset-0 noise-overlay"></div>
-        
-        <div className="relative container mx-auto px-4 py-20 lg:py-32">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-headline text-shadow-gold mb-6 tracking-wider">
-              THE BACKROOM
-            </h1>
-            <div className="w-32 h-1 bg-gradient-gold mx-auto mb-8"></div>
-            <p className="text-xl md:text-3xl text-deco-champagne font-display mb-4">
-              Leeds&apos; Premier Prohibition Experience
-            </p>
-            <p className="text-lg text-content-secondary mb-12 max-w-2xl mx-auto leading-relaxed">
-              Discover the city&apos;s best-kept secret. Hidden beneath Call Lane&apos;s railway bridge, 
-              where legendary nights begin and memories are made.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Button variant="gold" size="xl" className="min-w-48">
-                BOOK YOUR TABLE
-              </Button>
-              <Button variant="outline" size="xl" className="min-w-48">
-                EXPLORE EVENTS
-              </Button>
-            </div>
-            
-            {/* Quick info badges */}
-            <div className="flex flex-wrap justify-center gap-6 mt-12 text-sm">
-              <div className="flex items-center space-x-2 glass rounded-full px-4 py-2">
-                <MapPin className="w-4 h-4 text-deco-gold" />
-                <span>50a Call Lane, Leeds</span>
-              </div>
-              <div className="flex items-center space-x-2 glass rounded-full px-4 py-2">
-                <Clock className="w-4 h-4 text-deco-gold" />
-                <span>Late License Until 6am</span>
-              </div>
-              <div className="flex items-center space-x-2 glass rounded-full px-4 py-2">
-                <Users className="w-4 h-4 text-deco-gold" />
-                <span>18+ Only Venue</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Decorative bottom border */}
-        <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-transparent via-deco-gold to-transparent"></div>
-      </section>
+      {/* Video Hero Section */}
+      <VideoHero
+        videoSrc="/venue-specific-information/videos/book-a-table-video.mp4"
+        posterImage="/venue-specific-information/images/venue-interior-main.jpg"
+        title="THE BACKROOM"
+        subtitle="Leeds' Premier Prohibition Experience"
+        description="Discover the city's best-kept secret. Hidden beneath Call Lane's railway bridge, where legendary nights begin and memories are made."
+        primaryCTA={{
+          text: "BOOK YOUR TABLE",
+          onClick: () => setMobileBookingOpen(true)
+        }}
+        secondaryCTA={{
+          text: "EXPLORE EVENTS",
+          href: "/events"
+        }}
+        features={[
+          { icon: <MapPin className="w-4 h-4" />, text: "50a Call Lane, Leeds" },
+          { icon: <Clock className="w-4 h-4" />, text: "Late License Until 6am" },
+          { icon: <Users className="w-4 h-4" />, text: "18+ Only Venue" },
+          { icon: <Star className="w-4 h-4" />, text: "VIP Table Service" }
+        ]}
+        scarcityMessage={{
+          text: `Only ${tablesLeft} premium tables left for this weekend!`,
+          urgency: tablesLeft <= 3 ? 'high' : 'medium'
+        }}
+        socialProof={{
+          text: "Rated Leeds' #1 Speakeasy Experience",
+          metric: "4.9/5 stars"
+        }}
+        overlay="prohibition"
+      />
 
       {/* Features Section */}
       <section className="bg-secondary py-24">
@@ -233,36 +222,91 @@ export default function Home() {
         </div>
       </section>
 
-      {/* System Status */}
-      <section className="bg-deco-gold/5 border-t border-deco-gold/20 py-16">
+      {/* Social Proof Section */}
+      <section className="bg-deco-gold/5 border-t border-deco-gold/20 py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h3 className="text-2xl font-headline text-deco-gold mb-8">
-              LIVE SYSTEM STATUS
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-secondary border border-deco-gold/20 rounded-lg p-6 hover:border-deco-gold/40 transition-colors">
-                <div className="text-success text-3xl mb-3">✓</div>
-                <div className="text-lg font-medium text-content-primary mb-1">Database Online</div>
-                <div className="text-sm text-content-tertiary">16 tables • Real-time availability</div>
-              </div>
-              <div className="bg-secondary border border-deco-gold/20 rounded-lg p-6 hover:border-deco-gold/40 transition-colors">
-                <div className="text-success text-3xl mb-3">⚡</div>
-                <div className="text-lg font-medium text-content-primary mb-1">Real-time Active</div>
-                <div className="text-sm text-content-tertiary">Live updates • Zero conflicts</div>
-              </div>
-              <div className="bg-secondary border border-deco-gold/20 rounded-lg p-6 hover:border-deco-gold/40 transition-colors">
-                <div className="text-success text-3xl mb-3">🎉</div>
-                <div className="text-lg font-medium text-content-primary mb-1">Events Ready</div>
-                <div className="text-sm text-content-tertiary">3 weekly events • 8 resident DJs</div>
-              </div>
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h3 className="text-4xl font-headline text-deco-gold mb-6 tracking-wider">
+                TRUSTED BY THOUSANDS
+              </h3>
+              <div className="w-24 h-1 bg-gradient-gold mx-auto mb-6"></div>
+              <p className="text-xl text-content-secondary">
+                See why we&apos;re Leeds&apos; highest-rated speakeasy experience
+              </p>
             </div>
-            <div className="mt-8 text-sm text-content-tertiary">
-              <p>System uptime: 99.9% • Last update: Real-time • Response time: &lt;50ms</p>
+
+            {/* Statistics */}
+            <SocialProof variant="statistics" className="mb-16" />
+
+            {/* Reviews */}
+            <SocialProof variant="reviews" layout="grid" showCount={4} className="mb-16" />
+
+            {/* Media Mentions */}
+            <div className="text-center mb-12">
+              <h4 className="text-2xl font-headline text-deco-gold mb-8 tracking-wide">
+                FEATURED IN
+              </h4>
+              <SocialProof variant="media-mentions" />
             </div>
           </div>
         </div>
       </section>
+
+      {/* Final CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-prohibition-burgundy via-speakeasy-black to-deco-gold/30 text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="mb-8">
+              <ScarcityMessage
+                type="limited-tables"
+                urgency="high"
+                message="Weekend tables filling fast - book now to avoid disappointment"
+                metric={`${tablesLeft} tables left`}
+                animate={true}
+                className="inline-block"
+              />
+            </div>
+            
+            <h2 className="text-4xl md:text-5xl font-headline mb-6 tracking-wider">
+              READY TO EXPERIENCE THE LEGEND?
+            </h2>
+            
+            <p className="text-xl mb-8 text-white/90">
+              Join the thousands who&apos;ve discovered Leeds&apos; best-kept secret
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
+              <Button 
+                variant="gold" 
+                size="xl" 
+                className="min-w-48 font-headline"
+                onClick={() => setMobileBookingOpen(true)}
+              >
+                BOOK YOUR TABLE NOW
+              </Button>
+              <Link href="/events">
+                <Button variant="outline" size="xl" className="min-w-48 font-headline border-white text-white hover:bg-white hover:text-prohibition-burgundy">
+                  VIEW THIS WEEK&apos;S EVENTS
+                </Button>
+              </Link>
+            </div>
+
+            {/* Live Activity */}
+            <SocialProof variant="live-activity" className="max-w-md mx-auto" />
+          </div>
+        </div>
+      </section>
+
+      {/* Mobile Booking Flow */}
+      <MobileBookingFlow
+        isOpen={mobileBookingOpen}
+        onClose={() => setMobileBookingOpen(false)}
+        onBookingComplete={(data) => {
+          console.log('Booking completed:', data);
+          setMobileBookingOpen(false);
+        }}
+      />
     </div>
   );
 }

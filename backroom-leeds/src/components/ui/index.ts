@@ -1,6 +1,9 @@
 export { Button } from './Button';
 export { Input } from './Input';
 export { Textarea } from './Textarea';
+export { VideoHero } from './VideoHero';
+export { ScarcityMessage, scarcityPresets } from './ScarcityMessage';
+export { SocialProof } from './SocialProof';
 
 export type { ButtonProps } from './Button';
 export type { InputProps } from './Input';
